@@ -1,4 +1,5 @@
 // Sleep Entry types
+
 interface RegEntryModel {
   id: number
   date: string
@@ -9,6 +10,7 @@ interface RegEntryModel {
 }
 
 interface RegEntryView extends RegEntryModel {
+
   durationHours: number
   targetHours: number
   efficiency: number
@@ -16,15 +18,4 @@ interface RegEntryView extends RegEntryModel {
 
 }
 
-// User types
-interface User {
-  id: number
-  fullName: string
-  email: string
-  phone: string
-  role: string
-  password?: string
-  createdAt: string
-}
-
-export { RegEntryView, RegEntryModel, User }
+export { RegEntryView, RegEntryModel }

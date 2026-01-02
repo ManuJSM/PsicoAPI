@@ -2,18 +2,13 @@
 // npm install --save-dev prisma dotenv
 import { defineConfig } from 'prisma/config'
 import { Config } from './src/config/config'
-import Logger from './src/config/Logger'
+import { logger } from './src/config/Logger'
 
-let databaseUrl = Config.DATABASE_URL
-const databaseSchema = Config.DATABASE_SCHEMA
-if (!databaseUrl) {
-  Logger.getInstance().error('DATABASE_URL is not defined')
+const databaseUrl = Config.DATABASE_URL
+
+if (databaseUrl === undefined) {
+  logger.error('DATABASE_URL is not defined')
   throw new Error('DATABASE_URL is not defined')
-}
-if (!databaseSchema) {
-  Logger.getInstance().warn('DATABASE_SCHEMA is not defined')
-} else {
-  databaseUrl += `?schema=${databaseSchema}`
 }
 
 export default defineConfig({

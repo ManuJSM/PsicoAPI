@@ -4,18 +4,20 @@
 // Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
+
 generator client {
   provider = "prisma-client"
-  output   = "../generated/prisma/"
+  output   = "../generated/prisma"
 }
 
 datasource db {
   provider = "postgresql"
+  schemas  = ["psicoApi"]
 }
-
 enum Role {
   PSICO
   USER
+  @@schema("psicoApi")
 }
 
 model User {
@@ -26,4 +28,12 @@ model User {
   role      Role     @default(USER)
   password  String
   createdAt DateTime @default(now())
+
+  // Relación auto-referenciada: un paciente tiene un psicólogo
+  psicoId   Int?     // Nullable porque un psicólogo no tiene psico
+  psico     User?    @relation("PsicoPacientes", fields: [psicoId], references: [id])
+
+  // Un psicólogo puede tener muchos pacientes
+  pacientes User[]   @relation("PsicoPacientes")
+  @@schema("psicoApi")
 }
