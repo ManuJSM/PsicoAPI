@@ -1,6 +1,7 @@
 import winston from 'winston'
-import { Config } from './config'
-const isProd = Config.NODE_ENV === 'production'
+import { NODE_ENV } from './config'
+
+const isProd = NODE_ENV === 'production'
 
 class Logger {
   private static instance: Logger

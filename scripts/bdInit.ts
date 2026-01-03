@@ -1,12 +1,12 @@
-import { DbConn, posgreDb } from '../src/config/db'
+import { posgreDb } from '../src/config/db'
 import { User } from '../src/models/user.entity'
 import { UserService } from '../src/services/user.service'
 
-const db = new DbConn(posgreDb)
+const db = posgreDb
 
 async function main (): Promise<void> {
-  await db.getClient().initialize()
-  const userRepo = db.getClient().getRepository(User)
+  await db.initialize()
+  const userRepo = db.getRepository(User)
 
   // const admin = userRepo.create({
   //   fullName: 'Admin',
@@ -42,10 +42,10 @@ async function main (): Promise<void> {
 
 main()
   .then(async () => {
-    await db.getClient().destroy()
+    await db.destroy()
   })
   .catch(async (e) => {
     console.error(e)
-    await db.getClient().destroy()
+    await db.destroy()
     process.exit(1)
   })

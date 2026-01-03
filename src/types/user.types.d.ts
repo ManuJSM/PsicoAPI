@@ -1,19 +1,11 @@
+import type { User } from '../models/user.entity'
+
 export enum Role {
   PSICO = 'PSICO',
   USER = 'USER',
 }
+export type UserPacientsDto = Pick<User, 'id' | 'fullName' | 'email' | 'phone'>
 
-export interface UserViewDto {
-  email: string
-  fullName: string
-  phone: string
-  role: Role
-  createdAt: Date
-}
+export type UserViewDto = Pick<User, 'id' | 'fullName' | 'email' | 'phone' | 'role' | 'createdAt'>
 
-export interface UserCreateDto {
-  email: string
-  fullName: string
-  phone: string
-  password: string
-}
+export type UserCreateDto = Pick<User, 'fullName' | 'email' | 'phone' | 'password'>

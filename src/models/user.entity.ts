@@ -6,7 +6,7 @@ import {
   ManyToOne,
   OneToMany
 } from 'typeorm'
-import { Role } from '../types/user.types'
+import { Role } from '../types/user.types.d'
 
 @Entity('users')
 export class User {
