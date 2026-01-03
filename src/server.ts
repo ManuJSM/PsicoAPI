@@ -1,6 +1,6 @@
 import express from 'express'
 import { Config } from './config/config'
-import { logger } from './config/Logger'
+import { logger } from './config/logger'
 
 const PORT = Config.PORT
 

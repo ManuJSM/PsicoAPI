@@ -6,11 +6,7 @@ import {
   ManyToOne,
   OneToMany
 } from 'typeorm'
-
-export enum Role {
-  PSICO = 'PSICO',
-  USER = 'USER',
-}
+import { Role } from '../types/user.types'
 
 @Entity('users')
 export class User {

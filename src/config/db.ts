@@ -1,6 +1,6 @@
 import { DataSource } from 'typeorm'
 import { Config } from './config'
-import { User } from '../models/UserEntity'
+import { User } from '../models/user.entity'
 
 const host = Config.DB_HOST
 const pass = Config.DB_PASS
@@ -21,7 +21,7 @@ const posgreDb = new DataSource({
   password: pass,
   database: dbName,
   synchronize: true,
-  logging: true,
+  logging: false,
   entities: [User],
   subscribers: [],
   migrations: []
