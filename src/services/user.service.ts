@@ -4,15 +4,17 @@ import type { UserCreateDto, UserViewDto } from '../types/user.types'
 
 export interface UserServiceI {
   getAll: () => Promise<UserViewDto[]>
-  getPacients: (psicoId: number) => Promise<UserViewDto[]>
+  getPatients: (psicoId: number) => Promise<UserViewDto[]>
+  getById: (id: number) => Promise<UserViewDto | null>
+
 }
 
 export class UserService implements UserServiceI {
   constructor (private readonly db: Repository<User>) {}
 
   private toViewDto (user: User): UserViewDto {
-    const { id, email, fullName, phone, role, createdAt } = user
-    return { id, email, fullName, phone, role, createdAt }
+    const { id, active, email, fullName, phone, role, createdAt } = user
+    return { id, active, email, fullName, phone, role, createdAt }
   }
 
   private fromCreateDto (userDto: UserCreateDto): User {
@@ -28,7 +30,12 @@ export class UserService implements UserServiceI {
     return users.map(user => this.toViewDto(user))
   }
 
-  public getPacients = async (psicoId: number): Promise<UserViewDto[]> => {
+  public getById = async (id: number): Promise<UserViewDto | null> => {
+    const user = await this.db.findOneBy({ id })
+    return user != null ? this.toViewDto(user) : null
+  }
+
+  public getPatients = async (psicoId: number): Promise<UserViewDto[]> => {
     const pacients = await this.db.find({ where: { psico: { id: psicoId } } })
     return pacients.map(user => this.toViewDto(user))
   }

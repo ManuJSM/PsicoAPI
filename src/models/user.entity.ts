@@ -22,6 +22,9 @@ export class User {
   @Column()
     phone!: string
 
+  @Column({ default: true })
+    active!: boolean
+
   @Column({
     type: 'enum',
     enum: Role,
